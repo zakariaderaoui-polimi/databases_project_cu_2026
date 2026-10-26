@@ -1,0 +1,11 @@
+{
+  "name": "wikipedia-time-machine",
+  "version": "0.1.0",
+  "description": "A time machine for Wikipedia built on MariaDB temporal tables.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {}
+}
