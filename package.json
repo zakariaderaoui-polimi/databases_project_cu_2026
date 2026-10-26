@@ -7,5 +7,12 @@
   "engines": {
     "node": ">=20.11"
   },
-  "scripts": {}
+  "scripts": {
+  "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0"
+  }
 }
