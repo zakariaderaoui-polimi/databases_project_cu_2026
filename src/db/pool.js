@@ -48,3 +48,35 @@ export function createPool(opts = {}) {
 export async function createConnection(opts = {}) {
   return mariadb.createConnection(connectionOptions(opts));
 }
+
+/**
+ * Runs fn(conn) inside a transaction.
+ * Commits on success and rolls back on failure.
+ */
+export async function withTransaction(poolOrConn, fn) {
+  const isPool = typeof poolOrConn.getConnection === 'function';
+  const conn = isPool
+    ? await poolOrConn.getConnection()
+    : poolOrConn;
+
+  try {
+    await conn.beginTransaction();
+
+    const result = await fn(conn);
+
+    await conn.commit();
+    return result;
+  } catch (err) {
+    try {
+      await conn.rollback();
+    } catch {
+      // The connection may already be unavailable.
+    }
+
+    throw err;
+  } finally {
+    if (isPool) {
+      conn.release();
+    }
+  }
+}
