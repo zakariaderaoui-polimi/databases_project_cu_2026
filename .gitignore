@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment variables (secrets)
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Temporary
+tmp/
+temp/
+.cache/
+*.tmp
+*.temp
+
+# Local database dumps
+*.sql.gz
+*.dump
+
+# Raw API caches produced by ingestion (re-creatable)
+data/cache/
+
+# Node
+node_modules/
+coverage/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# AI-generated working files (team convention)
+*_AI.*
+*-AI.*
+*_ai.*
+*-ai.*
