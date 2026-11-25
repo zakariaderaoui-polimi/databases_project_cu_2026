@@ -818,6 +818,15 @@ Result on the full dataset (`npm run validate -- --sample-texts=1000 --sample-in
 * Benchmarks: one machine, warm cache only, Docker Desktop VM; the partition suite uses derived data.
 * Wikipedia changes: re-resolving later may yield different canonical titles (kept auditable by `articles`' history).
 
+**Parts of the temporal-tables documentation this project does not exercise**
+
+* `FOR SYSTEM_TIME` applied to a **view** (or to a subquery inside a view);
+* `PARTITION BY SYSTEM_TIME LIMIT n` (row-count rotation): only `INTERVAL … AUTO` is used and measured;
+* **subpartitions** of a `SYSTEM_TIME`-partitioned table;
+* exporting history with `mariadb-dump --dump-history` (`-H`) and restoring it;
+* **replication** of versioned tables (`secure_timestamp` on a replica, binlog behaviour of history rows);
+* the `DELETE HISTORY` **privilege** as a separate grant (the web account is simply SELECT-only).
+
 **How the system could scale**
 
 * **More articles / longer windows:** ingestion is per article and resumable; storage grows with distinct texts
@@ -845,6 +854,7 @@ Result on the full dataset (`npm run validate -- --sample-texts=1000 --sample-in
 
 ```text
 ├── README.md                    this tutorial
+├── LICENSE                      MIT (code)
 ├── docker-compose.yml           MariaDB 13.0.2 (health check, volume, init) + app
 ├── Dockerfile, .env.example, .gitignore, package.json, package-lock.json
 ├── config/project.json          dataset window, API etiquette, limits (single source of truth)
@@ -867,13 +877,13 @@ Result on the full dataset (`npm run validate -- --sample-texts=1000 --sample-in
 
 ## 17. Team
 
-| Name |
-|---|
+| Name            |
+| --------------- |
 | Zakaria Deraoui |
-| Alice Ragni |
-| Xiyuan Zhang |
+| Alice Ragni     |
+| Xiyuan Zhang    |
 | Anara Yusifzada |
 
 Built for the MariaDB student database projects at Constructor University (2026-09), area 3.
 
-License: code MIT. Article texts © Wikipedia contributors, CC BY-SA 4.0. Every revision links to its source.
+License: code under the [MIT License](LICENSE). Article texts © Wikipedia contributors, CC BY-SA 4.0. Every revision links to its source.
